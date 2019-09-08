@@ -4,6 +4,6 @@
 4. полный перебор 20% ближайших вариатов по времени забора (~15 мин. на 8 Гб ОЗУ, cpu: AMD 1.4 Ггц 2 ядра)
    в результате берут заказ на себя те курьеры, которые имеют максимальное значение, полученное по формуле
    metric = distance/weight = 
-(abs(location_x1[0] - location_x2[0]) + abs(location_y1[1] - location_y2[1]))/(df_orders['payment']/(10 + np.abs(df_orders['pickup_location_x'] - df_orders['dropoff_location_x']) + np.abs(df_orders['pickup_location_y'] - df_orders['dropoff_location_y'])))
+(abs(location_x1[0] - location_x2[0]) + abs(location_y1[1] - location_y2[1]))/(df_orders['payment']/(10 + np.abs(df_orders['pickup_location_x'] - df_orders['dropoff_location_x']) + np.abs(df_orders['pickup_location_y'] - df_orders['dropoff_location_y'])) + (10 + np.abs(df_orders['pickup_location_x'] - df_orders['dropoff_location_x']) + np.abs(df_orders['pickup_location_y'] - df_orders['dropoff_location_y'])).min() + 1)
 5. далее, диапозон обрабатываемых перегонов смещается на 20%
 6. остаток от деления маршрутов также учитывается
