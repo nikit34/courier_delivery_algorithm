@@ -22,12 +22,11 @@ df_orders = pd.DataFrame(data['orders'])
 
 df_couriers.loc[:, 'flag_product'] = False
 
-df_depots = df_depots.rename(columns={"location_x": "pickup_location_x", "location_y":"pickup_location_y"})
+df_depots = df_depots.rename(columns={"location_x": "pickup_location_x", "location_y": "pickup_location_y"})
 df_orders = pd.concat([df_orders, df_depots], sort=True)
 
 df_orders['delivery_time'] = 10 + np.abs(df_orders['pickup_location_x'] - df_orders['dropoff_location_x']) + np.abs(df_orders['pickup_location_y'] - df_orders['dropoff_location_y'])
 df_orders['profitable_trans'] = (df_orders['payment'] / df_orders['delivery_time'])
-df_orders['profitable_trans'] =  (df_orders['profitable_trans'] + df_orders['profitable_trans'].min())
 
 
 def distance_between_punches(loc1, loc2):
@@ -50,8 +49,8 @@ while delta_step != len(min_sort_order):
         for j in range(len(df_couriers)):
             distance = distance_between_punches((df_couriers.loc[j, 'location_x'], min_sort_order.loc[i, 'pickup_location_x']),(df_couriers.loc[j, 'location_y'], min_sort_order.loc[i, 'pickup_location_y']))
 
-            if min_tmp > distance * weight:
-                min_tmp = distance * weight
+            if min_tmp > distance / weight:
+                min_tmp = distance / weight
                 df_couriers.loc[j, 'location_x'] = min_sort_order.loc[i, 'pickup_location_x']
                 df_couriers.loc[j, 'location_y'] = min_sort_order.loc[i, 'pickup_location_y']
 
