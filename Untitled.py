@@ -44,11 +44,10 @@ while delta_step != len(min_sort_order):
     min_tmp = float("inf")
 
     for i in tqdm(range(tmp_start, delta_step)):
-        weight = min_sort_order.loc[i, 'profitable_trans']
+        weight = min_sort_order.loc[i, 'profitable_trans'] + min_sort_order['profitable_trans'].min() + 1
 
         for j in range(len(df_couriers)):
             distance = distance_between_punches((df_couriers.loc[j, 'location_x'], min_sort_order.loc[i, 'pickup_location_x']),(df_couriers.loc[j, 'location_y'], min_sort_order.loc[i, 'pickup_location_y']))
-
             if min_tmp > distance / weight:
                 min_tmp = distance / weight
                 df_couriers.loc[j, 'location_x'] = min_sort_order.loc[i, 'pickup_location_x']
