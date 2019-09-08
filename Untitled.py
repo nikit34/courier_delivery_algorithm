@@ -60,7 +60,7 @@ while delta_step != len(min_sort_order):
                     res_tmp_act = 'pickup'
                     df_couriers.loc[j, 'flag_product'] = False
 
-                res.loc[len(res),['courier_id', 'action','order_id','point_id']] = [df_couriers.loc[j, 'courier_id'], res_tmp_act, min_sort_order.loc[i, 'order_id'], min_sort_order.loc[i, 'point_id']]
+                res.loc[len(res),['courier_id', 'action','order_id','point_id']] = [df_couriers.loc[j, 'courier_id'], res_tmp_act, min_sort_order.loc[i, 'order_id'], min_sort_order.loc[i, 'pickup_point_id']]
                 reset_j = j
 
         df_couriers.loc[reset_j, 'location_x'] = min_sort_order.loc[i, 'pickup_location_x']
